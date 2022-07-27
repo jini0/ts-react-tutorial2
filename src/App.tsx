@@ -3,14 +3,17 @@
 //react를 만들 때, --template typescript를 지정해주면 typescript가 적용된 리액트를 만들어준다! (예전에는 --typescript만 해주면 됐는데 지금 버전에서는 --template typescript를 넣어줘야함!)
 import React from 'react';
 import './App.css';
-import Counter from './Counter';
-import MyForm from './MyForm';
+// import Counter from './Counter';
+// import MyForm from './MyForm';
+// (7.27)
+import ReducerSample from './ReducerSample';
 
 function App() {
   return (
     <div className="App">
-      <Counter />
-      <MyForm />
+      {/* <Counter />
+      <MyForm /> */}
+      <ReducerSample/>
     </div>
   );
 }

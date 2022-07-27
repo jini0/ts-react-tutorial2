@@ -1,7 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
+// import App from './App';
+// (7.27)  App2
+// import App2 from './App2';
+import App4 from './App4';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(
@@ -9,7 +12,9 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <App />
+    {/* <App /> */}
+    {/* <App2 /> */}
+    <App4 />
   </React.StrictMode>
 );
 
