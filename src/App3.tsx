@@ -5,7 +5,7 @@ import React from 'react';
 // 타입지정 - 1. 초기값
 // type initialState = {
 //     text: string,
-//     todos: [
+//     todos: [     //이렇게 해주지는 않음...!!!
 //         {
 //             id: number,
 //             todotext: string,

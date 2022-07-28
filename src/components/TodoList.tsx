@@ -1,6 +1,8 @@
 // (7.27) 선생님이랑 todolist 만들기 (메모장 참고)
 import React from 'react';
-import { Todo } from '../App4';
+// import { Todo } from '../App4';
+//7.28
+import { Todo } from '../todosContext';
 
 type TodoProps = {
     todos: Todo[];

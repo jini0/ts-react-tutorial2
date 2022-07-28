@@ -1,12 +1,8 @@
-// (7.27) 선생님이랑 todolist 만들기 (메모장 참고)
-// https://blog.naver.com/pink_candy02/222830999376 선생님 블로그 참고하기!
-// 1. app 
-// 2. component 2개 만들거임
-// -InsertTodo
-// -TodoList
-import React, { useReducer } from 'react';
-import InsertTodo from './components/InsertTodo';
-import TodoList from './components/TodoList';
+// 🧡(7.28) 선생님이랑 todolist 만들기 
+//어제 선생님이랑 todo했던거 컨텍스트로 해주기!!!🧡
+import React, { Dispatch, createContext, useReducer, useContext } from 'react';
+// import InsertTodo from './components/InsertTodo';
+// import TodoList from './components/TodoList';
 
 //* 상태관리할 데이터
 //1. input의 값
@@ -33,6 +29,14 @@ type Action = { type: 'INPUT_CHANGE'; inputText: string }
 | { type: 'CREATE_TODO'; todo: Todo }       //추가하기 위한 데이터니까 todo가 필요함 ->이 todo의 타입은 Todo
 | { type: 'DELETE_TODO'; id: number }
 | { type: 'DONE_TODO'; id: number }
+
+
+//🧡dispatch type 만들기
+type TypeDispatch = Dispatch<Action>;
+
+//🧡Context만들기
+const todoStateContext = createContext<State | null>(null);
+const todoDispatchContext = createContext<TypeDispatch | null>(null);
 
 //리듀서 함수
 function reducer(state: State, action: Action) : State {
@@ -67,7 +71,9 @@ function reducer(state: State, action: Action) : State {
             throw new Error("액션이 없어요")
     }
 }
-const App4 = () => {
+//🧡dotoStateContext state를 지정
+//🧡dotoDispatchContext dispathc를 지정
+export function TodoContext({children}: {children:React.ReactNode}){
     const [state, dispatch] = useReducer(reducer, {
         inputText: "",
         todos: [{
@@ -80,20 +86,27 @@ const App4 = () => {
             isDone: false
         }]
     })
-    const { inputText, todos } = state;
-    const onChange = (text: string)=> dispatch({type:'INPUT_CHANGE', inputText:text})       //(text: string) -string타입지정 해줘야함
-    const onCreate = () => dispatch({type:'CREATE_TODO', todo: {        //원래는 useRef로 해줘야하는데 그냥 지금은 하나만 넣어보자!
-        id:3,
-        text:state.inputText,
-        isDone: false
-    }})
-    const onDelete = (id:number) => dispatch({type:'DELETE_TODO', id:id})
     return (
-        <div className='app4'>
-            <InsertTodo inputText={inputText} onChange={onChange} onCreate={onCreate} />
-            <TodoList todos={todos} onDelete={onDelete}/>
-        </div>
-    );
-};
+        <todoStateContext.Provider value={state}>
+            <todoDispatchContext.Provider value={dispatch}>
+                { children }
+            </todoDispatchContext.Provider>
+        </todoStateContext.Provider>
+    )
+}
 
-export default App4;
+//🧡state와 dispatch를 쉽게 사용하기 위한 커스텀 hooks
+export function useTodoState(){
+    //state 만들어주기
+    const state = useContext(todoStateContext);
+    //에러처리
+    if (!state) throw new Error("유효하지 않음")
+    return state;   //state만 그냥 너는 받아 써!
+}
+export function useTodoDispatch(){
+    //state 만들어주기
+    const dispatch = useContext(todoDispatchContext);
+    //에러처리
+    if (!dispatch) throw new Error("유효하지 않음")
+    return dispatch;   //dispatch만 그냥 너는 받아 써!
+}

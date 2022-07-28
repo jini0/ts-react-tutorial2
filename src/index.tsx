@@ -2,10 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 // import App from './App';
-// (7.27)  App2
+// (7.27)  App2, App4  // (7.28) App2
 // import App2 from './App2';
-import App4 from './App4';
+// import App4 from './App4';
 import reportWebVitals from './reportWebVitals';
+// 7.28
+// import App2 from './App2';
+import { TodoContext } from './todosContext';
+import App5 from './App5';
+// import { TodoContext1 } from './Todo/todosContext1';
+// import App1 from './App1';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -13,8 +19,17 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     {/* <App /> */}
+    {/* <App4 /> */}
     {/* <App2 /> */}
-    <App4 />
+
+    {/* 7.28 */}
+    <TodoContext>
+      <App5 />
+    </TodoContext>
+    {/* 선생님자료 */}
+    {/* <TodoContext1>
+      <App1 />
+    </TodoContext1> */}
   </React.StrictMode>
 );
 
